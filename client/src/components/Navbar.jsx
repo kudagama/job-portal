@@ -33,44 +33,53 @@ const Navbar = () => {
                         <Link to="/" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
                             Home
                         </Link>
-                        <Link to="/find-jobs" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
-                            Find Jobs
-                        </Link>
-                        <Link to="/companies" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
-                            Companies
-                        </Link>
+
+                        {/* Guest or Candidate sees Find Jobs */}
+                        {(!user || user.role === 'candidate') && (
+                            <Link to="/find-jobs" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                                Find Jobs
+                            </Link>
+                        )}
+
+                        {/* Employer Links */}
+                        {user && user.role === 'employer' && (
+                            <>
+                                <Link to="/employer/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                                    Dashboard
+                                </Link>
+                                <Link to="/post-job" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                                    Post a Job
+                                </Link>
+                            </>
+                        )}
+
+                        {/* Candidate Links */}
+                        {user && user.role === 'candidate' && (
+                            <Link to="/candidate/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                                Dashboard
+                            </Link>
+                        )}
                     </div>
 
                     {/* Desktop Right Buttons */}
                     <div className="hidden md:flex items-center space-x-4">
                         {user ? (
                             <div className="flex items-center gap-4">
-                                {user.role === 'employer' && (
-                                    <Link to="/employer/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
-                                        Dashboard
-                                    </Link>
-                                )}
-                                {user.role === 'candidate' && (
-                                    <Link to="/candidate/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
-                                        Dashboard
-                                    </Link>
-                                )}
                                 <span className="text-gray-700 font-medium">Hello, {user.name}</span>
                                 <button onClick={handleLogout} className="text-gray-500 hover:text-red-600 font-medium px-4 py-2 transition-colors">
                                     Logout
                                 </button>
                             </div>
                         ) : (
-                            <Link to="/login" className="text-indigo-600 hover:text-indigo-800 font-medium px-4 py-2 transition-colors">
-                                Login
-                            </Link>
+                            <div className="flex items-center gap-4">
+                                <Link to="/login" className="text-indigo-600 hover:text-indigo-800 font-medium px-4 py-2 transition-colors">
+                                    Login
+                                </Link>
+                                <Link to="/signup" className="bg-indigo-600 text-white px-5 py-2.5 rounded-full font-medium hover:bg-indigo-700 hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                                    Signup
+                                </Link>
+                            </div>
                         )}
-                        <button
-                            onClick={() => user ? navigate('/post-job') : navigate('/login')}
-                            className="bg-indigo-600 text-white px-5 py-2.5 rounded-full font-medium hover:bg-indigo-700 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
-                        >
-                            Post a Job
-                        </button>
                     </div>
 
                     {/* Mobile hamburger menu button */}
@@ -103,40 +112,50 @@ const Navbar = () => {
                     <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
                         Home
                     </Link>
-                    <Link to="/find-jobs" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                        Find Jobs
-                    </Link>
-                    <Link to="/companies" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                        Companies
-                    </Link>
+
+                    {(!user || user.role === 'candidate') && (
+                        <Link to="/find-jobs" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                            Find Jobs
+                        </Link>
+                    )}
+
+                    {user && user.role === 'employer' && (
+                        <>
+                            <Link to="/employer/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                                Dashboard
+                            </Link>
+                            <Link to="/post-job" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                                Post a Job
+                            </Link>
+                        </>
+                    )}
+
+                    {user && user.role === 'candidate' && (
+                        <Link to="/candidate/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
+                            Dashboard
+                        </Link>
+                    )}
+
                     <div className="mt-4 pt-4 border-t border-gray-100">
                         {user ? (
                             <>
                                 <div className="px-3 py-2 text-base font-medium text-gray-900 border-b border-gray-50 mb-2">
-                                    Signed in as {user.name}
+                                    Signed in as {user.name} ({user.role})
                                 </div>
-                                {user.role === 'employer' && (
-                                    <Link to="/employer/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                                        Dashboard
-                                    </Link>
-                                )}
-                                {user.role === 'candidate' && (
-                                    <Link to="/candidate/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                                        Dashboard
-                                    </Link>
-                                )}
                                 <button onClick={handleLogout} className="block w-full text-left px-3 py-2 text-base font-medium text-red-600 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors">
                                     Logout
                                 </button>
                             </>
                         ) : (
-                            <button onClick={() => { setIsOpen(false); navigate('/login'); }} className="block w-full text-left px-3 py-2 text-base font-medium text-indigo-600 hover:text-indigo-800 hover:bg-gray-50 rounded-md transition-colors">
-                                Login
-                            </button>
+                            <>
+                                <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-left px-3 py-2 text-base font-medium text-indigo-600 hover:text-indigo-800 hover:bg-gray-50 rounded-md transition-colors">
+                                    Login
+                                </Link>
+                                <Link to="/signup" onClick={() => setIsOpen(false)} className="block w-full mt-2 px-3 py-3 text-center text-base font-medium bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors shadow-md">
+                                    Signup
+                                </Link>
+                            </>
                         )}
-                        <button onClick={() => { setIsOpen(false); user ? navigate('/post-job') : navigate('/login'); }} className="block w-full mt-2 px-3 py-3 text-center text-base font-medium bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors shadow-md">
-                            Post a Job
-                        </button>
                     </div>
                 </div>
             </div>

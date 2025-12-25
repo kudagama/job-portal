@@ -5,11 +5,15 @@ import { useAuth } from '../context/AuthContext';
 
 const PostJob = () => {
     const navigate = useNavigate();
-    const { user, token, loading: authLoading } = useAuth(); // Access token
+    const { user, token, loading: authLoading } = useAuth();
 
     useEffect(() => {
-        if (!authLoading && !user) {
-            navigate('/login');
+        if (!authLoading) {
+            if (!user) {
+                navigate('/login');
+            } else if (user.role !== 'employer') {
+                navigate('/');
+            }
         }
     }, [user, authLoading, navigate]);
 
@@ -42,12 +46,12 @@ const PostJob = () => {
         try {
             const config = {
                 headers: {
-                    Authorization: `Bearer ${token}`, // Add token here
+                    Authorization: `Bearer ${token}`,
                 },
             };
             await axios.post('http://localhost:5000/api/jobs', formData, config);
             alert('Service request posted successfully!');
-            navigate('/');
+            navigate('/employer/dashboard');
         } catch (err) {
             console.error(err);
             setError('Failed to post job. Please try again.');
@@ -55,6 +59,14 @@ const PostJob = () => {
             setLoading(false);
         }
     };
+
+    if (authLoading) {
+        return (
+            <div className="flex justify-center items-center py-20">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
