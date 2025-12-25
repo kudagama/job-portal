@@ -6,6 +6,7 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
+    console.error("If you see an SSL/TLS error, ensure your IP address is whitelisted in MongoDB Atlas.");
     process.exit(1);
   }
 };

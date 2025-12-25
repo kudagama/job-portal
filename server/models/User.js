@@ -26,6 +26,18 @@ const userSchema = new mongoose.Schema({
         enum: ['candidate', 'employer'],
         default: 'candidate'
     },
+    phone: {
+        type: String,
+        default: ''
+    },
+    address: {
+        type: String,
+        default: ''
+    },
+    bio: {
+        type: String,
+        default: ''
+    },
     createdAt: {
         type: Date,
         default: Date.now

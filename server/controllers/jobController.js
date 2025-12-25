@@ -7,7 +7,9 @@ const getJobs = async (req, res) => {
     try {
         const { keyword, category, budgetType, isUrgent, location } = req.query;
 
-        let query = {};
+        let query = {
+            status: 'Open'
+        };
 
         if (keyword) {
             query.$or = [

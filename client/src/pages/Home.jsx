@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import { FaTools, FaBolt, FaBroom, FaPaintRoller, FaTruck, FaHammer, FaTree, FaCheckCircle, FaUserShield, FaClock, FaCreditCard } from 'react-icons/fa';
 
 const Home = () => {
     const [featuredJobs, setFeaturedJobs] = useState([]);
@@ -10,8 +12,7 @@ const Home = () => {
         const fetchJobs = async () => {
             try {
                 const res = await axios.get('http://localhost:5000/api/jobs');
-                // Get latest 6 jobs
-                setFeaturedJobs(res.data.slice(0, 6));
+                setFeaturedJobs(res.data.slice(0, 6)); // Get latest 6 jobs
                 setLoading(false);
             } catch (err) {
                 console.error("Error fetching jobs:", err);
@@ -23,163 +24,207 @@ const Home = () => {
     }, []);
 
     const jobCategories = [
-        { name: 'Home Repairs', jobs: '20+ Tasks' },
-        { name: 'Cleaning', jobs: '15+ Tasks' },
-        { name: 'Electrical', jobs: '10+ Tasks' },
-        { name: 'Plumbing', jobs: '8+ Tasks' },
-        { name: 'Moving', jobs: '12+ Tasks' },
-        { name: 'Painting', jobs: '5+ Tasks' },
-        { name: 'Construction', jobs: '18+ Tasks' },
-        { name: 'Gardening', jobs: '7+ Tasks' },
+        { name: 'Home Repairs', jobs: '20+ Tasks', icon: <FaTools /> },
+        { name: 'Cleaning', jobs: '15+ Tasks', icon: <FaBroom /> },
+        { name: 'Electrical', jobs: '10+ Tasks', icon: <FaBolt /> },
+        { name: 'Plumbing', jobs: '8+ Tasks', icon: <FaTools /> }, // Using tools as generic for plumbing if specific not available
+        { name: 'Moving', jobs: '12+ Tasks', icon: <FaTruck /> },
+        { name: 'Painting', jobs: '5+ Tasks', icon: <FaPaintRoller /> },
+        { name: 'Construction', jobs: '18+ Tasks', icon: <FaHammer /> },
+        { name: 'Gardening', jobs: '7+ Tasks', icon: <FaTree /> },
     ];
 
+    const fadeInUp = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+    };
+
+    const staggerContainer = {
+        visible: { transition: { staggerChildren: 0.1 } }
+    };
+
     return (
-        <div className="w-full">
+        <div className="w-full font-sans text-gray-800">
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-indigo-700 via-purple-700 to-indigo-900 py-20 px-4 sm:px-6 lg:px-8 text-center text-white overflow-hidden">
-                {/* Decorative background circles */}
-                <div className="absolute top-0 left-0 w-64 h-64 bg-white opacity-5 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
-                <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500 opacity-10 rounded-full translate-x-1/3 translate-y-1/3 blur-3xl"></div>
+            <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 py-24 px-4 sm:px-6 lg:px-8 text-center text-white overflow-hidden">
+                {/* Abstract Background Shapes */}
+                <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
+                    <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500 rounded-full blur-[100px]" />
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500 rounded-full blur-[100px]" />
+                </div>
 
-                <div className="relative z-10 max-w-4xl mx-auto">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
-                        Find Local <span className="text-yellow-300">Service Experts</span>
-                    </h1>
-                    <p className="text-lg md:text-xl text-indigo-100 mb-10 max-w-2xl mx-auto">
-                        Connect with skilled workers in your area for plumbing, electrical, cleaning, and more.
-                    </p>
+                <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center">
+                    <motion.span
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="inline-block py-1 px-3 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-200 text-sm font-semibold mb-6 backdrop-blur-sm"
+                    >
+                        #1 Service Marketplace in Sri Lanka
+                    </motion.span>
 
-                    <div className="bg-white p-2 rounded-lg shadow-2xl max-w-3xl mx-auto flex flex-col md:flex-row gap-2">
-                        <div className="relative flex-grow">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                            <input
-                                type="text"
-                                placeholder="What service do you need?"
-                                className="w-full pl-10 pr-4 py-3 border-none rounded-md focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-400"
-                            />
-                        </div>
-                        <div className="relative flex-grow md:w-1/3 border-t md:border-t-0 md:border-l border-gray-200">
-                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                </svg>
-                            </div>
-                            <input
-                                type="text"
-                                placeholder="Pincode or City"
-                                className="w-full pl-10 pr-4 py-3 border-none rounded-md focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-400"
-                            />
-                        </div>
-                        <button className="bg-indigo-600 text-white font-bold py-3 px-8 rounded-md hover:bg-indigo-700 transition duration-300 shadow-md">
-                            Search
-                        </button>
+                    <motion.h1
+                        initial="hidden"
+                        animate="visible"
+                        variants={fadeInUp}
+                        className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight"
+                    >
+                        Find the Best <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Service Providers</span>
+                        <br /> in Sri Lanka
+                    </motion.h1>
+
+                    <motion.p
+                        initial="hidden"
+                        animate="visible"
+                        variants={fadeInUp}
+                        className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed"
+                    >
+                        Connect with skilled professionals for plumbing, electrical, cleaning, and more.
+                        Reliable, fast, and secure.
+                    </motion.p>
+
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={fadeInUp}
+                        className="flex flex-col sm:flex-row gap-4 w-full justify-center"
+                    >
+                        <Link to="/find-jobs" className="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-1 text-lg">
+                            Find Jobs
+                        </Link>
+                        <Link to="/post-job" className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-full hover:bg-white/20 transition-all transform hover:-translate-y-1 text-lg">
+                            Post a Job
+                        </Link>
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* Features Section */}
+            <section className="py-20 bg-slate-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Choose Us?</h2>
+                        <div className="w-20 h-1 bg-indigo-600 mx-auto rounded-full"></div>
                     </div>
 
-                    <div className="mt-6 text-sm text-indigo-200">
-                        Popular: <span className="underline cursor-pointer hover:text-white">Plumber</span>, <span className="underline cursor-pointer hover:text-white">Electrician</span>, <span className="underline cursor-pointer hover:text-white">House Cleaning</span>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={staggerContainer}
+                        className="grid grid-cols-1 md:grid-cols-3 gap-10"
+                    >
+                        {[
+                            { icon: <FaUserShield className="w-10 h-10" />, title: 'Trusted Professionals', desc: 'Every worker is verified to ensure high-quality service and safety for your home.' },
+                            { icon: <FaClock className="w-10 h-10" />, title: 'Fast & Reliable', desc: 'Get quick responses and timely service execution from our dedicated network.' },
+                            { icon: <FaCreditCard className="w-10 h-10" />, title: 'Secure Payments', desc: 'Transparent pricing and secure payment options for complete peace of mind.' }
+                        ].map((feature, index) => (
+                            <motion.div
+                                key={index}
+                                variants={fadeInUp}
+                                className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 text-center group"
+                            >
+                                <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform duration-300">
+                                    {feature.icon}
+                                </div>
+                                <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                                <p className="text-slate-600 leading-relaxed">
+                                    {feature.desc}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* How It Works Section */}
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">How It Works</h2>
+                        <p className="text-slate-600 max-w-2xl mx-auto">Getting things done has never been easier.</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        <div className="space-y-12">
+                            <div className="flex gap-6">
+                                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">1</div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2">Post a Job</h3>
+                                    <p className="text-slate-600">Describe what you need done, from home repairs to cleaning. It's free and easy.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-6">
+                                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">2</div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2">Choose an Expert</h3>
+                                    <p className="text-slate-600">Review profiles, ratings, and quotes to pick the best professional for your task.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-6">
+                                <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">3</div>
+                                <div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2">Get It Done</h3>
+                                    <p className="text-slate-600">Your pro arrives and gets the job done. Pay securely only when you're satisfied.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative h-96 bg-gray-100 rounded-2xl overflow-hidden shadow-2xl flex items-center justify-center">
+                            {/* Placeholder illustrating the concept if no image available */}
+                            <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-600 opacity-90"></div>
+                            <div className="relative z-10 text-white text-center p-8">
+                                <FaCheckCircle className="w-24 h-24 mx-auto mb-6 opacity-80" />
+                                <h3 className="text-3xl font-bold">Simple & Secure</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Categories Section */}
-            <section className="py-16 bg-gray-50">
+            {/* Categories Grid */}
+            <section className="py-20 bg-slate-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4">Browse by Category</h2>
-                        <p className="text-gray-600 max-w-2xl mx-auto">Find the job that fits your skills and interests from our wide range of categories.</p>
+                    <div className="flex justify-between items-end mb-12">
+                        <div>
+                            <h2 className="text-3xl font-bold text-slate-900 mb-2">Explore Categories</h2>
+                            <p className="text-slate-600">Find professionals for every need</p>
+                        </div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {jobCategories.map((category, index) => (
-                            <div
+                            <motion.div
                                 key={index}
-                                className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-indigo-100 transition-all duration-300 cursor-pointer group"
+                                whileHover={{ y: -5 }}
+                                className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 cursor-pointer group hover:border-indigo-200 transition-all"
                             >
-                                <div className="h-12 w-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
+                                <div className="w-12 h-12 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                    {category.icon}
                                 </div>
-                                <h3 className="font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">{category.name}</h3>
-                                <p className="text-sm text-gray-500 mt-1">{category.jobs}</p>
-                            </div>
+                                <h3 className="font-bold text-slate-900">{category.name}</h3>
+                                <p className="text-sm text-slate-500 mt-1">{category.jobs}</p>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Featured Jobs Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between items-end mb-10">
-                        <div>
-                            <h2 className="text-3xl font-bold text-gray-900 mb-2">Featured Tasks</h2>
-                            <p className="text-gray-600">Recently posted service requests</p>
-                        </div>
-                        <Link to="/find-jobs" className="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors hidden sm:inline-block">
-                            View all tasks &rarr;
+            {/* Call to Action Footer */}
+            <section className="py-20 bg-indigo-900 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full">
+                    <div className="absolute top-[20%] right-[10%] w-[300px] h-[300px] bg-purple-500 rounded-full blur-[120px] opacity-30" />
+                    <div className="absolute bottom-[20%] left-[10%] w-[300px] h-[300px] bg-indigo-500 rounded-full blur-[120px] opacity-30" />
+                </div>
+
+                <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Ready to get started?</h2>
+                    <p className="text-xl text-indigo-200 mb-10">Join thousands of satisfied customers and skilled professionals today.</p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link to="/signup" className="px-8 py-4 bg-white text-indigo-900 font-bold rounded-full hover:bg-indigo-50 transition-all text-lg shadow-lg">
+                            Register Now
                         </Link>
-                    </div>
-
-                    {loading ? (
-                        <div className="text-center py-10 text-indigo-600">Loading latest tasks...</div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {featuredJobs.length === 0 ? (
-                                <div className="col-span-3 text-center text-gray-500 py-10">
-                                    No tasks available right now. Be the first to post one!
-                                </div>
-                            ) : (
-                                featuredJobs.map((job) => (
-                                    <div key={job._id} className="bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
-                                        <div className="p-6 flex-grow">
-                                            <div className="flex justify-between items-start mb-4">
-                                                <div className="h-12 w-12 bg-gradient-to-tr from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-xl font-bold text-white shadow-md">
-                                                    {job.category ? job.category.charAt(0) : 'T'}
-                                                </div>
-                                                <span className={`px-2.5 py-1 rounded-full text-xs font-semibold ${job.isUrgent ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                                                    }`}>
-                                                    {job.isUrgent ? 'Urgent' : job.budgetType}
-                                                </span>
-                                            </div>
-                                            <h3 className="text-xl font-bold text-gray-900 mb-1 hover:text-indigo-600 transition-colors">
-                                                <Link to={`/jobs/${job._id}`}>{job.title}</Link>
-                                            </h3>
-                                            <div className="text-sm text-gray-500 mb-4 line-clamp-2">{job.description}</div>
-
-                                            <div className="flex flex-wrap gap-2 mb-4">
-                                                <span className="text-xs bg-gray-50 text-gray-600 px-2 py-1 rounded border border-gray-100">
-                                                    {job.category}
-                                                </span>
-                                                <span className="text-xs bg-gray-50 text-gray-600 px-2 py-1 rounded border border-gray-100">
-                                                    {job.location}
-                                                </span>
-                                            </div>
-
-                                            <div className="text-sm font-medium text-gray-900">
-                                                Rs. {job.budget}
-                                            </div>
-                                        </div>
-
-                                        <div className="px-6 py-4 border-t border-gray-50 bg-gray-50/50 rounded-b-xl">
-                                            <Link to={`/jobs/${job._id}`} className="block w-full text-center bg-white text-indigo-600 border border-indigo-200 font-semibold py-2 px-4 rounded-lg hover:bg-indigo-600 hover:text-white hover:border-transparent transition-all duration-300">
-                                                View Details
-                                            </Link>
-                                        </div>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                    )}
-
-                    <div className="mt-8 text-center sm:hidden">
-                        <Link to="/find-jobs" className="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors">
-                            View all tasks &rarr;
+                        <Link to="/find-jobs" className="px-8 py-4 bg-indigo-800 border border-indigo-700 text-white font-bold rounded-full hover:bg-indigo-700 transition-all text-lg">
+                            Browse Jobs
                         </Link>
                     </div>
                 </div>

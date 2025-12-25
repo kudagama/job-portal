@@ -12,6 +12,7 @@ const PostJob = () => {
             if (!user) {
                 navigate('/login');
             } else if (user.role !== 'employer') {
+                alert("Access Denied: Only Employers can post jobs.");
                 navigate('/');
             }
         }

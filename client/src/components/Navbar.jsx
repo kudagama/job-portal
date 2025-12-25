@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HiMenu, HiX, HiUserCircle, HiLogout } from 'react-icons/hi';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,25 +20,28 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
+        <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-100 shadow-sm transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
+                <div className="flex justify-between h-16 items-center">
                     {/* Logo Section */}
-                    <div className="flex-shrink-0 flex items-center">
-                        <Link to="/" className="text-2xl font-bold text-indigo-600 tracking-tighter hover:text-indigo-700 transition-colors">
+                    <div className="flex-shrink-0">
+                        <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
                             JobPortal
                         </Link>
                     </div>
 
                     {/* Desktop Navigation Links */}
                     <div className="hidden md:flex space-x-8 items-center">
-                        <Link to="/" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
-                            Home
-                        </Link>
+                        {/* Show Home link if NOT logged in OR if user is a Candidate */}
+                        {(!user || user.role === 'candidate') && (
+                            <Link to="/" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors duration-200">
+                                Home
+                            </Link>
+                        )}
 
                         {/* Guest or Candidate sees Find Jobs */}
                         {(!user || user.role === 'candidate') && (
-                            <Link to="/find-jobs" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                            <Link to="/find-jobs" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors duration-200">
                                 Find Jobs
                             </Link>
                         )}
@@ -44,10 +49,10 @@ const Navbar = () => {
                         {/* Employer Links */}
                         {user && user.role === 'employer' && (
                             <>
-                                <Link to="/employer/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                                <Link to="/employer/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors duration-200">
                                     Dashboard
                                 </Link>
-                                <Link to="/post-job" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                                <Link to="/post-job" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors duration-200">
                                     Post a Job
                                 </Link>
                             </>
@@ -55,7 +60,7 @@ const Navbar = () => {
 
                         {/* Candidate Links */}
                         {user && user.role === 'candidate' && (
-                            <Link to="/candidate/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                            <Link to="/candidate/dashboard" className="text-gray-600 hover:text-indigo-600 font-medium transition-colors duration-200">
                                 Dashboard
                             </Link>
                         )}
@@ -65,8 +70,15 @@ const Navbar = () => {
                     <div className="hidden md:flex items-center space-x-4">
                         {user ? (
                             <div className="flex items-center gap-4">
-                                <span className="text-gray-700 font-medium">Hello, {user.name}</span>
-                                <button onClick={handleLogout} className="text-gray-500 hover:text-red-600 font-medium px-4 py-2 transition-colors">
+                                <div className="flex items-center text-gray-700 font-medium bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+                                    <HiUserCircle className="w-5 h-5 mr-2 text-indigo-500" />
+                                    <span>{user.name}</span>
+                                </div>
+                                <Link to="/profile" className="text-gray-500 hover:text-indigo-600 p-2 rounded-full hover:bg-gray-100 transition-all" title="Profile">
+                                    Profile
+                                </Link>
+                                <button onClick={handleLogout} className="flex items-center text-gray-500 hover:text-red-600 font-medium px-3 py-2 rounded-lg hover:bg-red-50 transition-all" title="Logout">
+                                    <HiLogout className="w-5 h-5 mr-1" />
                                     Logout
                                 </button>
                             </div>
@@ -75,7 +87,7 @@ const Navbar = () => {
                                 <Link to="/login" className="text-indigo-600 hover:text-indigo-800 font-medium px-4 py-2 transition-colors">
                                     Login
                                 </Link>
-                                <Link to="/signup" className="bg-indigo-600 text-white px-5 py-2.5 rounded-full font-medium hover:bg-indigo-700 hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+                                <Link to="/signup" className="px-5 py-2.5 rounded-full font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
                                     Signup
                                 </Link>
                             </div>
@@ -87,78 +99,83 @@ const Navbar = () => {
                         <button
                             onClick={toggleMenu}
                             type="button"
-                            className="text-gray-500 hover:text-indigo-600 focus:outline-none focus:text-indigo-600 transition-colors"
-                            aria-controls="mobile-menu"
-                            aria-expanded="false"
+                            className="text-gray-500 hover:text-indigo-600 focus:outline-none transition-colors"
                         >
-                            <span className="sr-only">Open main menu</span>
-                            {!isOpen ? (
-                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            ) : (
-                                <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            )}
+                            {isOpen ? <HiX className="w-7 h-7" /> : <HiMenu className="w-7 h-7" />}
                         </button>
                     </div>
                 </div>
             </div>
 
             {/* Mobile Menu Dropdown */}
-            <div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`} id="mobile-menu">
-                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-b border-gray-100 shadow-lg">
-                    <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                        Home
-                    </Link>
-
-                    {(!user || user.role === 'candidate') && (
-                        <Link to="/find-jobs" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                            Find Jobs
-                        </Link>
-                    )}
-
-                    {user && user.role === 'employer' && (
-                        <>
-                            <Link to="/employer/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                                Dashboard
-                            </Link>
-                            <Link to="/post-job" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                                Post a Job
-                            </Link>
-                        </>
-                    )}
-
-                    {user && user.role === 'candidate' && (
-                        <Link to="/candidate/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 transition-colors">
-                            Dashboard
-                        </Link>
-                    )}
-
-                    <div className="mt-4 pt-4 border-t border-gray-100">
-                        {user ? (
-                            <>
-                                <div className="px-3 py-2 text-base font-medium text-gray-900 border-b border-gray-50 mb-2">
-                                    Signed in as {user.name} ({user.role})
-                                </div>
-                                <button onClick={handleLogout} className="block w-full text-left px-3 py-2 text-base font-medium text-red-600 hover:text-red-800 hover:bg-gray-50 rounded-md transition-colors">
-                                    Logout
-                                </button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-left px-3 py-2 text-base font-medium text-indigo-600 hover:text-indigo-800 hover:bg-gray-50 rounded-md transition-colors">
-                                    Login
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        className="md:hidden overflow-hidden bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-xl"
+                    >
+                        <div className="px-4 pt-2 pb-6 space-y-2">
+                            {(!user || user.role === 'candidate') && (
+                                <Link to="/" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                                    Home
                                 </Link>
-                                <Link to="/signup" onClick={() => setIsOpen(false)} className="block w-full mt-2 px-3 py-3 text-center text-base font-medium bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors shadow-md">
-                                    Signup
+                            )}
+
+                            {(!user || user.role === 'candidate') && (
+                                <Link to="/find-jobs" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                                    Find Jobs
                                 </Link>
-                            </>
-                        )}
-                    </div>
-                </div>
-            </div>
+                            )}
+
+                            {user && user.role === 'employer' && (
+                                <>
+                                    <Link to="/employer/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                                        Dashboard
+                                    </Link>
+                                    <Link to="/post-job" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                                        Post a Job
+                                    </Link>
+                                </>
+                            )}
+
+                            {user && user.role === 'candidate' && (
+                                <Link to="/candidate/dashboard" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                                    Dashboard
+                                </Link>
+                            )}
+
+                            <div className="mt-4 pt-4 border-t border-gray-100">
+                                {user ? (
+                                    <>
+                                        <div className="flex items-center px-3 py-2 mb-2 text-indigo-700 bg-indigo-50 rounded-lg">
+                                            <HiUserCircle className="w-6 h-6 mr-2" />
+                                            <span className="font-medium">{user.name} ({user.role})</span>
+                                        </div>
+                                        <Link to="/profile" onClick={() => setIsOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 transition-colors">
+                                            Profile
+                                        </Link>
+                                        <button onClick={handleLogout} className="flex w-full items-center px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50 transition-colors">
+                                            <HiLogout className="w-5 h-5 mr-2" />
+                                            Logout
+                                        </button>
+                                    </>
+                                ) : (
+                                    <div className="space-y-3 pt-2">
+                                        <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2 text-indigo-600 border border-indigo-200 rounded-lg hover:bg-indigo-50 transition-colors">
+                                            Login
+                                        </Link>
+                                        <Link to="/signup" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow-md transition-colors">
+                                            Signup
+                                        </Link>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 };
