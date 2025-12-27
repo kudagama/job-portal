@@ -13,7 +13,11 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: ["https://job-portal-oncj.vercel.app", "http://localhost:5173"],
+  methods: ["POST", "GET", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 
