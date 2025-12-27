@@ -274,8 +274,12 @@ const CandidateDashboard = () => {
                                 </div>
                                 <div className="p-8">
                                     <div className="flex flex-col items-center mb-6">
-                                        <div className="h-20 w-20 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-3xl font-bold mb-4">
-                                            {selectedApp.job.createdBy?.name?.charAt(0) || 'E'}
+                                        <div className="h-20 w-20 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-3xl font-bold mb-4 overflow-hidden border-2 border-indigo-200 dark:border-indigo-700">
+                                            {selectedApp.job.createdBy?.profilePicture ? (
+                                                <img src={selectedApp.job.createdBy.profilePicture} alt="Employer" className="h-full w-full object-cover" />
+                                            ) : (
+                                                selectedApp.job.createdBy?.name?.charAt(0) || 'E'
+                                            )}
                                         </div>
                                         <h4 className="text-xl font-bold text-gray-900 dark:text-white">{selectedApp.job.createdBy?.name}</h4>
                                         <p className="text-sm text-gray-500 dark:text-gray-400">{t.dashboard.candidate.jobPoster}</p>

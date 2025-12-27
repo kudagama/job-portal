@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HiPencil, HiCheck, HiX, HiUser, HiMail, HiPhone, HiLocationMarker, HiBriefcase, HiInformationCircle, HiCamera } from 'react-icons/hi';
+import { FaStar } from 'react-icons/fa';
 
 const Profile = () => {
     const { t } = useLanguage();
@@ -26,6 +27,8 @@ const Profile = () => {
         password: ''
     });
 
+    const [reviews, setReviews] = useState([]);
+
     useEffect(() => {
         if (!user) {
             navigate('/login');
@@ -39,6 +42,17 @@ const Profile = () => {
                 password: ''
             });
             setImagePreview(user.profilePicture || null);
+
+            // Fetch reviews
+            const fetchReviews = async () => {
+                try {
+                    const res = await axios.get(`http://localhost:5000/api/reviews/user/${user._id}`);
+                    setReviews(res.data);
+                } catch (err) {
+                    console.error("Failed to fetch reviews", err);
+                }
+            };
+            fetchReviews();
         }
     }, [user, navigate]);
 
@@ -340,6 +354,67 @@ const Profile = () => {
                             )}
                         </AnimatePresence>
                     </div>
+                </motion.div>
+                {/* Reviews Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="mt-8 bg-white dark:bg-gray-800 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 p-8"
+                >
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
+                        <FaStar className="text-yellow-400 mr-2" />
+                        Reviews & Ratings
+                        {reviews.length > 0 && (
+                            <span className="ml-3 text-sm font-normal px-3 py-1 bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 rounded-full border border-indigo-200 dark:border-indigo-800">
+                                {reviews.length} reviews
+                            </span>
+                        )}
+                    </h3>
+
+                    {reviews.length === 0 ? (
+                        <div className="text-center py-10 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-dashed border-gray-200 dark:border-gray-700">
+                            <FaStar className="mx-auto h-12 w-12 text-gray-300 dark:text-gray-600 mb-3" />
+                            <p className="text-gray-500 dark:text-gray-400 font-medium">No reviews yet</p>
+                            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">Reviews from employers will appear here.</p>
+                        </div>
+                    ) : (
+                        <div className="grid gap-6 md:grid-cols-2">
+                            {reviews.map((review) => (
+                                <div key={review._id} className="bg-gray-50 dark:bg-gray-700/30 p-6 rounded-2xl border border-gray-100 dark:border-gray-700/50 hover:shadow-md transition-shadow">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="flex items-center">
+                                            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-sm shadow-sm mr-3">
+                                                {review.reviewer?.name?.charAt(0) || 'E'}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-gray-900 dark:text-white text-sm">{review.reviewer?.name || 'Employer'}</h4>
+                                                <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(review.createdAt).toLocaleDateString()}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex bg-white dark:bg-gray-800 px-2 py-1 rounded-lg border border-gray-100 dark:border-gray-600 shadow-sm">
+                                            {[...Array(5)].map((_, i) => (
+                                                <FaStar
+                                                    key={i}
+                                                    className={`w-3.5 h-3.5 ${i < review.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'}`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider bg-indigo-50 dark:bg-indigo-900/20 px-2 py-0.5 rounded">
+                                            Job: {review.job?.title || 'Unknown Job'}
+                                        </span>
+                                    </div>
+
+                                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed italic">
+                                        "{review.comment}"
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </motion.div>
             </main>
         </div>

@@ -89,8 +89,41 @@ const createJob = async (req, res) => {
 // @access  Private
 const getMyJobs = async (req, res) => {
     try {
-        const jobs = await Job.find({ createdBy: req.user.id });
-        res.status(200).json(jobs);
+        const jobs = await Job.find({ createdBy: req.user.id }).sort({ createdAt: -1 });
+
+        // Fetch applications for these jobs to determine detailed status
+        // We only care about Accepted or Finished ones to distinguish "In Progress" vs "Finished" for Closed jobs
+        const jobIds = jobs.map(job => job._id);
+        const applications = await require('../models/Application').find({
+            job: { $in: jobIds },
+            status: { $in: ['Accepted', 'Finished'] }
+        });
+
+        const jobsWithStatus = jobs.map(job => {
+            const jobObj = job.toObject();
+            const acceptedApp = applications.find(app => app.job.toString() === job._id.toString());
+
+            if (acceptedApp) {
+                // If there is an Accepted or Finished application, treat the job as Closed for the dashboard
+                jobObj.status = 'Closed';
+
+                if (acceptedApp.status === 'Finished') {
+                    jobObj.detailedStatus = 'Finished';
+                } else {
+                    jobObj.detailedStatus = 'In Progress';
+                }
+            } else {
+                // Fallback to the actual job status if no application is active
+                if (job.status === 'Closed') {
+                    jobObj.detailedStatus = 'Closed'; // Manually closed
+                } else {
+                    jobObj.detailedStatus = 'Open';
+                }
+            }
+            return jobObj;
+        });
+
+        res.status(200).json(jobsWithStatus);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

@@ -50,7 +50,7 @@ const getMyApplications = async (req, res) => {
             .populate({
                 path: 'job',
                 select: 'title company location budget status contactPhone', // Ensure contactPhone is selected
-                populate: { path: 'createdBy', select: 'name email' }
+                populate: { path: 'createdBy', select: 'name email profilePicture' }
             })
             .sort({ appliedAt: -1 });
 
@@ -69,7 +69,7 @@ const getJobApplications = async (req, res) => {
         console.log("-----------------------------------------");
         console.log("Request received for Job ID:", req.params.jobId);
         const applications = await Application.find({ job: req.params.jobId })
-            .populate('applicant', 'name email phone') // Get applicant details
+            .populate('applicant', 'name email phone profilePicture') // Get applicant details
             .sort({ createdAt: -1 });
         console.log("Number of applications found:", applications.length);
         if (applications.length > 0) {
@@ -89,7 +89,7 @@ const updateApplicationStatus = async (req, res) => {
         const { status } = req.body;
         const applicationId = req.params.id;
 
-        if (!['Accepted', 'Rejected'].includes(status)) {
+        if (!['Accepted', 'Rejected', 'Finished'].includes(status)) {
             return res.status(400).json({ message: 'Invalid status' });
         }
 
@@ -105,7 +105,7 @@ const updateApplicationStatus = async (req, res) => {
             return res.status(403).json({ message: 'Not authorized to update this application' });
         }
 
-        if (status === 'Accepted') {
+        if (status === 'Accepted' || status === 'Finished') {
             await Job.findByIdAndUpdate(job._id, { status: 'Closed' });
         }
 
