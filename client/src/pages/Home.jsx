@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../context/LanguageContext';
 import { FaTools, FaBolt, FaBroom, FaPaintRoller, FaTruck, FaHammer, FaTree, FaCheckCircle, FaUserShield, FaClock, FaCreditCard } from 'react-icons/fa';
 
 const Home = () => {
     const [featuredJobs, setFeaturedJobs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { t } = useLanguage();
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -69,8 +71,7 @@ const Home = () => {
                         variants={fadeInUp}
                         className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight"
                     >
-                        Find the Best <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Service Providers</span>
-                        <br /> in Sri Lanka
+                        {t.home.heroTitle}
                     </motion.h1>
 
                     <motion.p
@@ -79,8 +80,7 @@ const Home = () => {
                         variants={fadeInUp}
                         className="text-xl md:text-2xl text-slate-300 mb-12 max-w-3xl mx-auto leading-relaxed"
                     >
-                        Connect with skilled professionals for plumbing, electrical, cleaning, and more.
-                        Reliable, fast, and secure.
+                        {t.home.heroSub}
                     </motion.p>
 
                     <motion.div
@@ -90,10 +90,10 @@ const Home = () => {
                         className="flex flex-col sm:flex-row gap-4 w-full justify-center"
                     >
                         <Link to="/find-jobs" className="px-8 py-4 bg-indigo-600 text-white font-bold rounded-full hover:bg-indigo-700 shadow-lg hover:shadow-indigo-500/30 transition-all transform hover:-translate-y-1 text-lg">
-                            Find Jobs
+                            {t.home.findJobsBtn}
                         </Link>
                         <Link to="/post-job" className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white font-bold rounded-full hover:bg-white/20 transition-all transform hover:-translate-y-1 text-lg">
-                            Post a Job
+                            {t.home.postJobBtn}
                         </Link>
                     </motion.div>
                 </div>
@@ -103,7 +103,7 @@ const Home = () => {
             <section className="py-20 bg-slate-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">Why Choose Us?</h2>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">{t.home.whyChooseUs}</h2>
                         <div className="w-20 h-1 bg-indigo-600 mx-auto rounded-full"></div>
                     </div>
 
@@ -115,9 +115,9 @@ const Home = () => {
                         className="grid grid-cols-1 md:grid-cols-3 gap-10"
                     >
                         {[
-                            { icon: <FaUserShield className="w-10 h-10" />, title: 'Trusted Professionals', desc: 'Every worker is verified to ensure high-quality service and safety for your home.' },
-                            { icon: <FaClock className="w-10 h-10" />, title: 'Fast & Reliable', desc: 'Get quick responses and timely service execution from our dedicated network.' },
-                            { icon: <FaCreditCard className="w-10 h-10" />, title: 'Secure Payments', desc: 'Transparent pricing and secure payment options for complete peace of mind.' }
+                            { icon: <FaUserShield className="w-10 h-10" />, title: t.home.trustedPros, desc: 'Every worker is verified to ensure high-quality service and safety for your home.' },
+                            { icon: <FaClock className="w-10 h-10" />, title: t.home.fastReliable, desc: 'Get quick responses and timely service execution from our dedicated network.' },
+                            { icon: <FaCreditCard className="w-10 h-10" />, title: t.home.securePayments, desc: 'Transparent pricing and secure payment options for complete peace of mind.' }
                         ].map((feature, index) => (
                             <motion.div
                                 key={index}
@@ -141,7 +141,7 @@ const Home = () => {
             <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">How It Works</h2>
+                        <h2 className="text-3xl font-bold text-slate-900 mb-4">{t.home.howItWorks}</h2>
                         <p className="text-slate-600 max-w-2xl mx-auto">Getting things done has never been easier.</p>
                     </div>
 
@@ -150,21 +150,21 @@ const Home = () => {
                             <div className="flex gap-6">
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">1</div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2">Post a Job</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{t.home.postJobStep}</h3>
                                     <p className="text-slate-600">Describe what you need done, from home repairs to cleaning. It's free and easy.</p>
                                 </div>
                             </div>
                             <div className="flex gap-6">
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">2</div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2">Choose an Expert</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{t.home.chooseExpertStep}</h3>
                                     <p className="text-slate-600">Review profiles, ratings, and quotes to pick the best professional for your task.</p>
                                 </div>
                             </div>
                             <div className="flex gap-6">
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">3</div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2">Get It Done</h3>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{t.home.getItDoneStep}</h3>
                                     <p className="text-slate-600">Your pro arrives and gets the job done. Pay securely only when you're satisfied.</p>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-end mb-12">
                         <div>
-                            <h2 className="text-3xl font-bold text-slate-900 mb-2">Explore Categories</h2>
+                            <h2 className="text-3xl font-bold text-slate-900 mb-2">{t.home.exploreCategories}</h2>
                             <p className="text-slate-600">Find professionals for every need</p>
                         </div>
                     </div>
@@ -217,14 +217,14 @@ const Home = () => {
                 </div>
 
                 <div className="relative z-10 max-w-4xl mx-auto text-center px-4">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Ready to get started?</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">{t.home.readyToStart}</h2>
                     <p className="text-xl text-indigo-200 mb-10">Join thousands of satisfied customers and skilled professionals today.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Link to="/signup" className="px-8 py-4 bg-white text-indigo-900 font-bold rounded-full hover:bg-indigo-50 transition-all text-lg shadow-lg">
-                            Register Now
+                            {t.home.registerNow}
                         </Link>
                         <Link to="/find-jobs" className="px-8 py-4 bg-indigo-800 border border-indigo-700 text-white font-bold rounded-full hover:bg-indigo-700 transition-all text-lg">
-                            Browse Jobs
+                            {t.home.browseJobs}
                         </Link>
                     </div>
                 </div>
