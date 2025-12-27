@@ -45,7 +45,7 @@ const FindJobs = () => {
                 if (filters.isUrgent) queryParams.append('isUrgent', 'true');
                 if (filters.location) queryParams.append('location', filters.location);
 
-                const res = await axios.get(`http://localhost:5000/api/jobs?${queryParams.toString()}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/jobs?${queryParams.toString()}`);
                 setJobs(res.data);
                 setLoading(false);
             } catch (err) {

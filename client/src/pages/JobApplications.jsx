@@ -37,8 +37,8 @@ const JobApplications = () => {
                 };
 
                 const [appRes, jobRes] = await Promise.all([
-                    axios.get(`http://localhost:5000/api/applications/job/${jobId}`, config),
-                    axios.get(`http://localhost:5000/api/jobs/${jobId}`, config)
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/applications/job/${jobId}`, config),
+                    axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/jobs/${jobId}`, config)
                 ]);
 
                 setApplications(appRes.data);
@@ -61,7 +61,7 @@ const JobApplications = () => {
             const config = {
                 headers: { Authorization: `Bearer ${token}` }
             };
-            await axios.put(`http://localhost:5000/api/applications/${id}/status`, { status: newStatus }, config);
+            await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/applications/${id}/status`, { status: newStatus }, config);
 
             const updatedApps = applications.map(app =>
                 app._id === id ? { ...app, status: newStatus } : app
@@ -90,7 +90,7 @@ const JobApplications = () => {
         setViewReviewsOpen(true);
         setReviewsLoading(true);
         try {
-            const res = await axios.get(`http://localhost:5000/api/reviews/user/${applicantId}`);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/reviews/user/${applicantId}`);
             setApplicantReviews(res.data);
         } catch (err) {
             console.error("Error fetching reviews:", err);
@@ -110,7 +110,7 @@ const JobApplications = () => {
                 headers: { Authorization: `Bearer ${token}` }
             };
 
-            await axios.post('http://localhost:5000/api/reviews', {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/reviews`, {
                 revieweeId: reviewTarget,
                 jobId: jobId,
                 rating,

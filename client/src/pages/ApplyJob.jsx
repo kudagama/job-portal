@@ -19,7 +19,7 @@ const ApplyJob = () => {
     useEffect(() => {
         const fetchJob = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/jobs/${jobId}`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/jobs/${jobId}`);
                 setJob(res.data);
             } catch (err) {
                 console.error("Error fetching job:", err);
@@ -42,7 +42,7 @@ const ApplyJob = () => {
                 }
             };
 
-            await axios.post('http://localhost:5000/api/applications', {
+            await axios.post(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/applications`, {
                 jobId,
                 coverLetter
             }, config);

@@ -46,7 +46,7 @@ const Profile = () => {
             // Fetch reviews
             const fetchReviews = async () => {
                 try {
-                    const res = await axios.get(`http://localhost:5000/api/reviews/user/${user._id}`);
+                    const res = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/reviews/user/${user._id}`);
                     setReviews(res.data);
                 } catch (err) {
                     console.error("Failed to fetch reviews", err);
@@ -98,7 +98,7 @@ const Profile = () => {
                 dataToSend.append('profilePicture', imageFile);
             }
 
-            const res = await axios.put('http://localhost:5000/api/auth/profile', dataToSend, config);
+            const res = await axios.put(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/auth/profile`, dataToSend, config);
             login(res.data);
             setIsEditing(false);
             setImageFile(null); // Reset file input

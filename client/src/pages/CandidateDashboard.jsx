@@ -18,7 +18,7 @@ const CandidateDashboard = () => {
         const fetchData = async () => {
             try {
                 // Fetch All Jobs for recommendations
-                const jobsRes = await axios.get('http://localhost:5000/api/jobs');
+                const jobsRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/jobs`);
                 setJobs(jobsRes.data);
 
                 // Fetch My Applications
@@ -26,7 +26,7 @@ const CandidateDashboard = () => {
                     const config = {
                         headers: { Authorization: `Bearer ${token}` }
                     };
-                    const appsRes = await axios.get('http://localhost:5000/api/applications/my-applications', config);
+                    const appsRes = await axios.get(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/applications/my-applications`, config);
                     setMyApplications(appsRes.data);
                 }
 
