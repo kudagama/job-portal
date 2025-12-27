@@ -14,9 +14,8 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: ["https://job-portal-oncj.vercel.app", "http://localhost:5173"],
-  methods: ["POST", "GET", "PUT", "DELETE"],
-  credentials: true
+    origin: "*", // ඕනෑම තැනක සිට එන්න පුළුවන් (CORS error නවත්වන්න)
+    credentials: true
 }));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
