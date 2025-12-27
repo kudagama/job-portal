@@ -84,6 +84,10 @@ const updateUserProfile = async (req, res) => {
             user.address = req.body.address || user.address;
             user.bio = req.body.bio || user.bio;
 
+            if (req.file) {
+                user.profilePicture = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+            }
+
             if (req.body.password) {
                 user.password = req.body.password;
             }
@@ -98,6 +102,7 @@ const updateUserProfile = async (req, res) => {
                 phone: updatedUser.phone,
                 address: updatedUser.address,
                 bio: updatedUser.bio,
+                profilePicture: updatedUser.profilePicture,
                 token: generateToken(updatedUser._id),
             });
         } else {
