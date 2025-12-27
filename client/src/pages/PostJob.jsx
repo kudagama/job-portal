@@ -70,16 +70,16 @@ const PostJob = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mx-auto">
-                <div className="bg-white py-8 px-6 shadow rounded-lg sm:px-10 border border-gray-100">
+                <div className="bg-white dark:bg-gray-800 py-8 px-6 shadow rounded-lg sm:px-10 border border-gray-100 dark:border-gray-700">
                     <div className="mb-8 text-center">
-                        <h2 className="text-3xl font-extrabold text-gray-900">Post a Service Request</h2>
-                        <p className="mt-2 text-sm text-gray-600">Fill in the details to find the right expert for your task.</p>
+                        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">Post a Service Request</h2>
+                        <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Fill in the details to find the right expert for your task.</p>
                     </div>
 
                     {error && (
-                        <div className="mb-4 bg-red-50 border-l-4 border-red-500 p-4 text-red-700">
+                        <div className="mb-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-4 text-red-700 dark:text-red-300">
                             <p>{error}</p>
                         </div>
                     )}
@@ -87,7 +87,7 @@ const PostJob = () => {
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         {/* Title */}
                         <div>
-                            <label htmlFor="title" className="block text-sm font-medium text-gray-700">Task Title</label>
+                            <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Task Title</label>
                             <input
                                 type="text"
                                 name="title"
@@ -96,13 +96,13 @@ const PostJob = () => {
                                 value={formData.title}
                                 onChange={handleChange}
                                 placeholder="e.g., Fix Leaking Tap"
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                             />
                         </div>
 
                         {/* Description */}
                         <div>
-                            <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
+                            <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
                             <textarea
                                 name="description"
                                 id="description"
@@ -111,19 +111,19 @@ const PostJob = () => {
                                 value={formData.description}
                                 onChange={handleChange}
                                 placeholder="Describe the work in detail..."
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                             />
                         </div>
 
                         {/* Category */}
                         <div>
-                            <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
+                            <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
                             <select
                                 name="category"
                                 id="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                className="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900 dark:text-white"
                             >
                                 {categories.map((cat) => (
                                     <option key={cat} value={cat}>{cat}</option>
@@ -134,7 +134,7 @@ const PostJob = () => {
                         {/* Budget Section */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label htmlFor="budget" className="block text-sm font-medium text-gray-700">Budget (Rs.)</label>
+                                <label htmlFor="budget" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Budget (Rs.)</label>
                                 <input
                                     type="number"
                                     name="budget"
@@ -142,17 +142,17 @@ const PostJob = () => {
                                     value={formData.budget}
                                     onChange={handleChange}
                                     placeholder="e.g., 500"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="budgetType" className="block text-sm font-medium text-gray-700">Budget Type</label>
+                                <label htmlFor="budgetType" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Budget Type</label>
                                 <select
                                     name="budgetType"
                                     id="budgetType"
                                     value={formData.budgetType}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-900 dark:text-white"
                                 >
                                     <option value="Fixed">Fixed Price</option>
                                     <option value="Daily">Daily Wage</option>
@@ -163,7 +163,7 @@ const PostJob = () => {
                         {/* Location & Phone */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label htmlFor="location" className="block text-sm font-medium text-gray-700">Location</label>
+                                <label htmlFor="location" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Location</label>
                                 <input
                                     type="text"
                                     name="location"
@@ -171,11 +171,11 @@ const PostJob = () => {
                                     value={formData.location}
                                     onChange={handleChange}
                                     placeholder="e.g., Indiranagar, Bangalore"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                                 />
                             </div>
                             <div>
-                                <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700">Contact Phone</label>
+                                <label htmlFor="contactPhone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Contact Phone</label>
                                 <input
                                     type="tel"
                                     name="contactPhone"
@@ -183,7 +183,7 @@ const PostJob = () => {
                                     value={formData.contactPhone}
                                     onChange={handleChange}
                                     placeholder="e.g., 9876543210"
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500"
                                 />
                             </div>
                         </div>
@@ -196,9 +196,9 @@ const PostJob = () => {
                                 type="checkbox"
                                 checked={formData.isUrgent}
                                 onChange={handleChange}
-                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
                             />
-                            <label htmlFor="isUrgent" className="ml-2 block text-sm text-gray-900">
+                            <label htmlFor="isUrgent" className="ml-2 block text-sm text-gray-900 dark:text-gray-300">
                                 This task is urgent
                             </label>
                         </div>

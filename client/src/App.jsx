@@ -39,19 +39,23 @@ const AnimatedRoutes = () => {
   );
 };
 
+import { ThemeProvider } from './context/ThemeContext';
+
 export default function App() {
   return (
     <AuthProvider>
       <LanguageProvider>
-        <Router>
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">
-              <AnimatedRoutes />
-            </main>
-            <Footer />
-          </div>
-        </Router>
+        <ThemeProvider>
+          <Router>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow dark:bg-gray-900 transition-colors duration-300">
+                <AnimatedRoutes />
+              </main>
+              <Footer />
+            </div>
+          </Router>
+        </ThemeProvider>
       </LanguageProvider>
     </AuthProvider>
   )

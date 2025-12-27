@@ -46,7 +46,7 @@ const Home = () => {
     };
 
     return (
-        <div className="w-full font-sans text-gray-800">
+        <div className="w-full font-sans text-gray-800 dark:text-gray-200">
             {/* Hero Section */}
             <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 py-24 px-4 sm:px-6 lg:px-8 text-center text-white overflow-hidden">
                 {/* Abstract Background Shapes */}
@@ -100,10 +100,10 @@ const Home = () => {
             </section>
 
             {/* Features Section */}
-            <section className="py-20 bg-slate-50">
+            <section className="py-20 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">{t.home.whyChooseUs}</h2>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t.home.whyChooseUs}</h2>
                         <div className="w-20 h-1 bg-indigo-600 mx-auto rounded-full"></div>
                     </div>
 
@@ -122,13 +122,13 @@ const Home = () => {
                             <motion.div
                                 key={index}
                                 variants={fadeInUp}
-                                className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-300 text-center group"
+                                className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-slate-100 dark:border-gray-700 hover:shadow-xl transition-all duration-300 text-center group"
                             >
-                                <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform duration-300">
+                                <div className="w-20 h-20 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl group-hover:scale-110 transition-transform duration-300">
                                     {feature.icon}
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
-                                <p className="text-slate-600 leading-relaxed">
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{feature.title}</h3>
+                                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                                     {feature.desc}
                                 </p>
                             </motion.div>
@@ -138,11 +138,11 @@ const Home = () => {
             </section>
 
             {/* How It Works Section */}
-            <section className="py-20 bg-white">
+            <section className="py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">{t.home.howItWorks}</h2>
-                        <p className="text-slate-600 max-w-2xl mx-auto">Getting things done has never been easier.</p>
+                        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t.home.howItWorks}</h2>
+                        <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Getting things done has never been easier.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
@@ -150,22 +150,22 @@ const Home = () => {
                             <div className="flex gap-6">
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">1</div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{t.home.postJobStep}</h3>
-                                    <p className="text-slate-600">Describe what you need done, from home repairs to cleaning. It's free and easy.</p>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{t.home.postJobStep}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400">Describe what you need done, from home repairs to cleaning. It's free and easy.</p>
                                 </div>
                             </div>
                             <div className="flex gap-6">
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">2</div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{t.home.chooseExpertStep}</h3>
-                                    <p className="text-slate-600">Review profiles, ratings, and quotes to pick the best professional for your task.</p>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{t.home.chooseExpertStep}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400">Review profiles, ratings, and quotes to pick the best professional for your task.</p>
                                 </div>
                             </div>
                             <div className="flex gap-6">
                                 <div className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-xl shadow-lg">3</div>
                                 <div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{t.home.getItDoneStep}</h3>
-                                    <p className="text-slate-600">Your pro arrives and gets the job done. Pay securely only when you're satisfied.</p>
+                                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{t.home.getItDoneStep}</h3>
+                                    <p className="text-slate-600 dark:text-slate-400">Your pro arrives and gets the job done. Pay securely only when you're satisfied.</p>
                                 </div>
                             </div>
                         </div>
@@ -182,12 +182,12 @@ const Home = () => {
             </section>
 
             {/* Categories Grid */}
-            <section className="py-20 bg-slate-50">
+            <section className="py-20 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-end mb-12">
                         <div>
-                            <h2 className="text-3xl font-bold text-slate-900 mb-2">{t.home.exploreCategories}</h2>
-                            <p className="text-slate-600">Find professionals for every need</p>
+                            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">{t.home.exploreCategories}</h2>
+                            <p className="text-slate-600 dark:text-slate-400">Find professionals for every need</p>
                         </div>
                     </div>
 
@@ -196,13 +196,13 @@ const Home = () => {
                             <motion.div
                                 key={index}
                                 whileHover={{ y: -5 }}
-                                className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 cursor-pointer group hover:border-indigo-200 transition-all"
+                                className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-gray-700 cursor-pointer group hover:border-indigo-200 dark:hover:border-indigo-500 transition-all"
                             >
-                                <div className="w-12 h-12 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                <div className="w-12 h-12 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
                                     {category.icon}
                                 </div>
-                                <h3 className="font-bold text-slate-900">{category.name}</h3>
-                                <p className="text-sm text-slate-500 mt-1">{category.jobs}</p>
+                                <h3 className="font-bold text-slate-900 dark:text-white">{category.name}</h3>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{category.jobs}</p>
                             </motion.div>
                         ))}
                     </div>
