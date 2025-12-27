@@ -98,7 +98,7 @@ const FindJobs = () => {
                     transition={{ duration: 0.5 }}
                     className="mb-8 text-center sm:text-left"
                 >
-                    <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white flex items-center justify-center sm:justify-start gap-3">
+                    <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 dark:text-white flex items-center justify-center sm:justify-start gap-3">
                         <div className="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
                             <FaBriefcase className="text-indigo-600 dark:text-indigo-400" />
                         </div>

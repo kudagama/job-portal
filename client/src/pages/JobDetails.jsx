@@ -61,7 +61,7 @@ const JobDetails = () => {
     return (
         <div className="bg-gray-50 dark:bg-gray-900 min-h-screen pb-20 font-sans text-gray-800 dark:text-gray-200">
             {/* Hero Section */}
-            <div className="bg-gradient-to-r from-indigo-700 to-purple-800 text-white py-16">
+            <div className="bg-gradient-to-r from-indigo-700 to-purple-800 text-white py-10 md:py-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <Link to="/find-jobs" className="text-indigo-200 hover:text-white font-medium inline-flex items-center mb-8 transition-colors">
                         <FaArrowLeft className="mr-2" /> Back to Tasks

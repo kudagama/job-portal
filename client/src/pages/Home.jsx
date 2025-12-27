@@ -48,7 +48,7 @@ const Home = () => {
     return (
         <div className="w-full font-sans text-gray-800 dark:text-gray-200">
             {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 py-24 px-4 sm:px-6 lg:px-8 text-center text-white overflow-hidden">
+            <section className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 py-16 md:py-24 px-4 sm:px-6 lg:px-8 text-center text-white overflow-hidden">
                 {/* Abstract Background Shapes */}
                 <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-20">
                     <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500 rounded-full blur-[100px]" />
@@ -100,7 +100,7 @@ const Home = () => {
             </section>
 
             {/* Features Section */}
-            <section className="py-20 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
+            <section className="py-12 md:py-20 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t.home.whyChooseUs}</h2>
@@ -138,7 +138,7 @@ const Home = () => {
             </section>
 
             {/* How It Works Section */}
-            <section className="py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
+            <section className="py-12 md:py-20 bg-white dark:bg-gray-800 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t.home.howItWorks}</h2>
@@ -182,7 +182,7 @@ const Home = () => {
             </section>
 
             {/* Categories Grid */}
-            <section className="py-20 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
+            <section className="py-12 md:py-20 bg-slate-50 dark:bg-gray-900 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-end mb-12">
                         <div>
@@ -210,7 +210,7 @@ const Home = () => {
             </section>
 
             {/* Call to Action Footer */}
-            <section className="py-20 bg-indigo-900 relative overflow-hidden">
+            <section className="py-16 md:py-20 bg-indigo-900 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-full">
                     <div className="absolute top-[20%] right-[10%] w-[300px] h-[300px] bg-purple-500 rounded-full blur-[120px] opacity-30" />
                     <div className="absolute bottom-[20%] left-[10%] w-[300px] h-[300px] bg-indigo-500 rounded-full blur-[120px] opacity-30" />

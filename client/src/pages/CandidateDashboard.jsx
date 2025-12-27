@@ -86,16 +86,16 @@ const CandidateDashboard = () => {
                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-indigo-500 opacity-30 blur-3xl"></div>
                     <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full bg-purple-500 opacity-30 blur-3xl"></div>
 
-                    <div className="relative z-10 px-8 py-12 md:flex md:items-center md:justify-between">
-                        <div className="md:w-2/3">
-                            <h2 className="text-3xl font-extrabold text-white tracking-tight sm:text-4xl">
+                    <div className="relative z-10 px-6 py-8 md:px-8 md:py-12 md:flex md:items-center md:justify-between">
+                        <div className="md:w-2/3 mb-6 md:mb-0">
+                            <h2 className="text-2xl font-extrabold text-white tracking-tight sm:text-4xl">
                                 {t.dashboard.candidate.welcomeBack}, {user?.name}!
                             </h2>
-                            <p className="mt-4 text-lg text-indigo-100 max-w-3xl">
+                            <p className="mt-2 md:mt-4 text-base md:text-lg text-indigo-100 max-w-3xl">
                                 {t.dashboard.candidate.subTitle}
                             </p>
                         </div>
-                        <div className="mt-8 md:mt-0 md:w-1/3 flex justify-end gap-4">
+                        <div className="md:w-1/3 flex justify-start md:justify-end gap-4 overflow-x-auto pb-2 md:pb-0">
                             <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl text-center min-w-[100px]">
                                 <span className="block text-3xl font-bold text-white mb-1">{myApplications.length}</span>
                                 <span className="text-sm text-indigo-200">{t.dashboard.candidate.statsApplied}</span>

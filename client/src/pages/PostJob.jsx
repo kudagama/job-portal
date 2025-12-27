@@ -74,7 +74,7 @@ const PostJob = () => {
             <div className="max-w-2xl mx-auto">
                 <div className="bg-white dark:bg-gray-800 py-8 px-6 shadow rounded-lg sm:px-10 border border-gray-100 dark:border-gray-700">
                     <div className="mb-8 text-center">
-                        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">Post a Service Request</h2>
+                        <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white">Post a Service Request</h2>
                         <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Fill in the details to find the right expert for your task.</p>
                     </div>
 

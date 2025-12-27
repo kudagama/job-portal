@@ -146,10 +146,10 @@ const JobApplications = () => {
                     <FaArrowLeft className="mr-2" /> Back to Dashboard
                 </button>
 
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-                            Job Applications <span className="text-gray-400 dark:text-gray-500 text-lg ml-2">({applications.length})</span>
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                            Job Applications <span className="text-gray-400 dark:text-gray-500 text-base md:text-lg ml-2">({applications.length})</span>
                         </h2>
                         <p className="text-gray-500 dark:text-gray-400 mt-1 flex items-center">
                             For: <span className="font-semibold text-gray-700 dark:text-gray-200 ml-1">{job?.title}</span>
@@ -181,7 +181,7 @@ const JobApplications = () => {
                             >
                                 <div className="md:flex">
                                     {/* Candidate Info Column */}
-                                    <div className="p-8 md:w-1/3 bg-gray-50 dark:bg-gray-800/50 border-r border-gray-100 dark:border-gray-700">
+                                    <div className="p-5 md:p-8 md:w-1/3 bg-gray-50 dark:bg-gray-800/50 border-r border-gray-100 dark:border-gray-700">
                                         <div className="flex items-center mb-6">
                                             <div className="h-14 w-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl font-bold shadow-md mr-4 overflow-hidden">
                                                 {app.applicant?.profilePicture ? (
@@ -230,7 +230,7 @@ const JobApplications = () => {
                                     </div>
 
                                     {/* Application Content Column */}
-                                    <div className="p-8 md:w-2/3 flex flex-col">
+                                    <div className="p-5 md:p-8 md:w-2/3 flex flex-col">
                                         <div className="flex-grow">
                                             <h4 className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-4 flex items-center">
                                                 <FaFileAlt className="mr-2" /> Cover Letter

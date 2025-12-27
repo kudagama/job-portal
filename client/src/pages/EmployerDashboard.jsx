@@ -73,13 +73,12 @@ const EmployerDashboard = () => {
 
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans transition-colors duration-300">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
                 {/* Header Section */}
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10 gap-4">
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 md:mb-10 gap-4">
                     <div>
-                        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Employer Dashboard</h1>
-                        <p className="mt-1 text-gray-500 dark:text-gray-400">Manage your posted jobs and track applications.</p>
+                        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Employer Dashboard</h1>
+                        <p className="mt-1 text-sm md:text-base text-gray-500 dark:text-gray-400">Manage your posted jobs and track applications.</p>
                     </div>
                     <Link
                         to="/post-job"

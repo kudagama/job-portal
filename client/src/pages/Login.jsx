@@ -48,7 +48,7 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans text-gray-900 dark:text-gray-200">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-6 sm:py-12 sm:px-6 lg:px-8 font-sans text-gray-900 dark:text-gray-200">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -59,9 +59,9 @@ const Login = () => {
                     <div className="h-16 w-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4">
                         S
                     </div>
-                    <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Saviya.lk</h1>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Saviya.lk</h1>
                 </div>
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
+                <h2 className="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
                     {t.login.welcome}
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
@@ -75,7 +75,7 @@ const Login = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mt-8 sm:mx-auto sm:w-full sm:max-w-md"
             >
-                <div className="bg-white dark:bg-gray-800 py-8 px-4 shadow-xl sm:rounded-xl sm:px-10 border border-gray-100 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 py-6 px-4 sm:py-8 sm:px-10 shadow-xl sm:rounded-xl border border-gray-100 dark:border-gray-700">
 
                     {error && (
                         <div className="mb-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-500 p-4 text-red-700 dark:text-red-300 animate-pulse text-sm">
