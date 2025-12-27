@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext'; // Import Language Hook
 import { motion } from 'framer-motion';
 import { FaUser, FaEnvelope, FaLock, FaCheckCircle, FaGoogle } from 'react-icons/fa';
 
 const Signup = () => {
+    const { t } = useLanguage(); // Get translations
     const navigate = useNavigate();
     const { login } = useAuth();
     const [formData, setFormData] = useState({
@@ -29,7 +31,7 @@ const Signup = () => {
         setLoading(true);
 
         if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match");
+            setError(t.signup.passwordMismatch);
             setLoading(false);
             return;
         }
@@ -56,7 +58,7 @@ const Signup = () => {
             }
         } catch (err) {
             console.error(err);
-            setError(err.response?.data?.message || "Registration failed");
+            setError(err.response?.data?.message || t.signup.fail);
         } finally {
             setLoading(false);
         }
@@ -70,16 +72,17 @@ const Signup = () => {
                 transition={{ duration: 0.5 }}
                 className="sm:mx-auto sm:w-full sm:max-w-md"
             >
-                <div className="flex justify-center">
-                    <div className="h-12 w-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                        JP
+                <div className="flex flex-col items-center justify-center mb-6">
+                    <div className="h-16 w-16 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4">
+                        S
                     </div>
+                    <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Saviya.lk</h1>
                 </div>
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                    Create an Account
+                    {t.signup.title}
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-600">
-                    Join thousands of employers and candidates
+                    {t.signup.subtitle}
                 </p>
             </motion.div>
 
@@ -101,7 +104,7 @@ const Signup = () => {
 
                         {/* Role Selection */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">I want to...</label>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">{t.signup.iWantTo}</label>
                             <div className="grid grid-cols-2 gap-4">
                                 <button
                                     type="button"
@@ -111,7 +114,7 @@ const Signup = () => {
                                         : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
                                         }`}
                                 >
-                                    Get Hired
+                                    {t.signup.getHired}
                                     {formData.role === 'candidate' && <FaCheckCircle className="absolute top-2 right-2 text-indigo-500" />}
                                 </button>
                                 <button
@@ -122,7 +125,7 @@ const Signup = () => {
                                         : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50'
                                         }`}
                                 >
-                                    Hire Talent
+                                    {t.signup.hireTalent}
                                     {formData.role === 'employer' && <FaCheckCircle className="absolute top-2 right-2 text-indigo-500" />}
                                 </button>
                             </div>
@@ -130,7 +133,7 @@ const Signup = () => {
 
                         <div>
                             <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                                Full Name
+                                {t.signup.name}
                             </label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -145,14 +148,14 @@ const Signup = () => {
                                     value={formData.name}
                                     onChange={handleChange}
                                     className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 py-2 border"
-                                    placeholder="John Doe"
+                                    placeholder={t.signup.placeholderName}
                                 />
                             </div>
                         </div>
 
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                Email address
+                                {t.signup.email}
                             </label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -174,7 +177,7 @@ const Signup = () => {
 
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                Password
+                                {t.signup.password}
                             </label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -195,7 +198,7 @@ const Signup = () => {
 
                         <div>
                             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                                Confirm Password
+                                {t.signup.confirmPassword}
                             </label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -220,7 +223,7 @@ const Signup = () => {
                                 disabled={loading}
                                 className={`w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform active:scale-95 ${loading ? 'opacity-75 cursor-not-allowed' : ''}`}
                             >
-                                {loading ? 'Creating Account...' : 'Create Account'}
+                                {loading ? t.signup.creating : t.signup.createAccount}
                             </button>
                         </div>
                     </form>
@@ -231,7 +234,7 @@ const Signup = () => {
                                 <div className="w-full border-t border-gray-200" />
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                                <span className="px-2 bg-white text-gray-500">{t.signup.orContinue}</span>
                             </div>
                         </div>
 
@@ -241,15 +244,15 @@ const Signup = () => {
                                 className="w-full flex justify-center items-center py-2.5 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                             >
                                 <FaGoogle className="h-5 w-5 text-red-500 mr-2" />
-                                Sign up with Google
+                                {t.signup.google}
                             </a>
                         </div>
                     </div>
                 </div>
                 <p className="mt-6 text-center text-sm text-gray-600">
-                    Already have an account?{' '}
+                    {t.signup.haveAccount}{' '}
                     <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                        Sign in
+                        {t.signup.signIn}
                     </Link>
                 </p>
             </motion.div>

@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext'; // Import Language Hook
 
 const Profile = () => {
+    const { t } = useLanguage(); // Get translations
     const { user, token, login } = useAuth();
     const navigate = useNavigate();
 
@@ -59,7 +61,7 @@ const Profile = () => {
             const res = await axios.put('http://localhost:5000/api/auth/profile', dataToUpdate, config);
             login(res.data); // Update context with new user data
             setIsEditing(false);
-            alert('Profile updated successfully!');
+            alert(t.profile.success); // Use translated success message
         } catch (err) {
             console.error(err);
             setError(err.response?.data?.message || 'Failed to update profile');
@@ -73,14 +75,14 @@ const Profile = () => {
             <div className="max-w-3xl mx-auto bg-white shadow overflow-hidden sm:rounded-lg">
                 <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
                     <div>
-                        <h3 className="text-lg leading-6 font-medium text-gray-900">User Profile</h3>
-                        <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details and application status.</p>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">{t.profile.title}</h3>
+                        <p className="mt-1 max-w-2xl text-sm text-gray-500">{t.profile.subtitle}</p>
                     </div>
                     <button
                         onClick={() => setIsEditing(!isEditing)}
                         className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                        {isEditing ? 'Cancel' : 'Edit Profile'}
+                        {isEditing ? t.profile.cancel : t.profile.edit}
                     </button>
                 </div>
 
@@ -97,43 +99,43 @@ const Profile = () => {
                         <form onSubmit={handleSubmit} className="p-6 space-y-6">
                             <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                                 <div className="sm:col-span-3">
-                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">{t.profile.name}</label>
                                     <div className="mt-1">
                                         <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
                                     </div>
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email (Cannot change)</label>
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">{t.profile.email}</label>
                                     <div className="mt-1">
                                         <input type="email" name="email" id="email" value={formData.email} disabled className="shadow-sm bg-gray-50 block w-full sm:text-sm border-gray-300 rounded-md p-2 border text-gray-500" />
                                     </div>
                                 </div>
 
                                 <div className="sm:col-span-3">
-                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
+                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">{t.profile.phone}</label>
                                     <div className="mt-1">
                                         <input type="text" name="phone" id="phone" value={formData.phone} onChange={handleChange} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
                                     </div>
                                 </div>
 
                                 <div className="sm:col-span-6">
-                                    <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address</label>
+                                    <label htmlFor="address" className="block text-sm font-medium text-gray-700">{t.profile.address}</label>
                                     <div className="mt-1">
                                         <input type="text" name="address" id="address" value={formData.address} onChange={handleChange} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
                                     </div>
                                 </div>
 
                                 <div className="sm:col-span-6">
-                                    <label htmlFor="bio" className="block text-sm font-medium text-gray-700">Bio</label>
+                                    <label htmlFor="bio" className="block text-sm font-medium text-gray-700">{t.profile.bio}</label>
                                     <div className="mt-1">
                                         <textarea id="bio" name="bio" rows="3" value={formData.bio} onChange={handleChange} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md p-2"></textarea>
                                     </div>
-                                    <p className="mt-2 text-sm text-gray-500">Brief description for your profile.</p>
+                                    <p className="mt-2 text-sm text-gray-500">{t.profile.bioHint}</p>
                                 </div>
 
                                 <div className="sm:col-span-4">
-                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">New Password (leave blank to keep current)</label>
+                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">{t.profile.password}</label>
                                     <div className="mt-1">
                                         <input type="password" name="password" id="password" value={formData.password} onChange={handleChange} className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
                                     </div>
@@ -142,38 +144,38 @@ const Profile = () => {
 
                             <div className="flex justify-end">
                                 <button type="button" onClick={() => setIsEditing(false)} className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
-                                    Cancel
+                                    {t.profile.cancel}
                                 </button>
                                 <button type="submit" disabled={loading} className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    {loading ? 'Saving...' : 'Save'}
+                                    {loading ? t.profile.saving : t.profile.save}
                                 </button>
                             </div>
                         </form>
                     ) : (
                         <dl className="sm:divide-y sm:divide-gray-200">
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500">Full name</dt>
+                                <dt className="text-sm font-medium text-gray-500">{t.profile.name}</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.name}</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500">Role</dt>
+                                <dt className="text-sm font-medium text-gray-500">{t.profile.role}</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 capitalize">{user?.role}</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500">Email address</dt>
+                                <dt className="text-sm font-medium text-gray-500">{t.profile.emailLabel}</dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.email}</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500">Phone</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.phone || <span className="text-gray-400 italic">Not set</span>}</dd>
+                                <dt className="text-sm font-medium text-gray-500">{t.profile.phone}</dt>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.phone || <span className="text-gray-400 italic">{t.profile.notSet}</span>}</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500">Address</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.address || <span className="text-gray-400 italic">Not set</span>}</dd>
+                                <dt className="text-sm font-medium text-gray-500">{t.profile.address}</dt>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.address || <span className="text-gray-400 italic">{t.profile.notSet}</span>}</dd>
                             </div>
                             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt className="text-sm font-medium text-gray-500">Bio</dt>
-                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.bio || <span className="text-gray-400 italic">No bio available</span>}</dd>
+                                <dt className="text-sm font-medium text-gray-500">{t.profile.bio}</dt>
+                                <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user?.bio || <span className="text-gray-400 italic">{t.profile.noBio}</span>}</dd>
                             </div>
                         </dl>
                     )}

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
 import Navbar from "./components/Navbar";
@@ -14,6 +14,30 @@ import CandidateDashboard from "./pages/CandidateDashboard";
 import Profile from "./pages/Profile";
 import ApplyJob from "./pages/ApplyJob";
 import JobApplications from "./pages/JobApplications";
+import { AnimatePresence } from 'framer-motion';
+import PageTransition from './components/PageTransition';
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/find-jobs" element={<PageTransition><FindJobs /></PageTransition>} />
+        <Route path="/jobs/:id" element={<PageTransition><JobDetails /></PageTransition>} />
+        <Route path="/apply/:jobId" element={<PageTransition><ApplyJob /></PageTransition>} />
+        <Route path="/login" element={<PageTransition><Login /></PageTransition>} />
+        <Route path="/signup" element={<PageTransition><Signup /></PageTransition>} />
+        <Route path="/post-job" element={<PageTransition><PostJob /></PageTransition>} />
+        <Route path="/employer/dashboard" element={<PageTransition><EmployerDashboard /></PageTransition>} />
+        <Route path="/job-applications/:jobId" element={<PageTransition><JobApplications /></PageTransition>} />
+        <Route path="/candidate/dashboard" element={<PageTransition><CandidateDashboard /></PageTransition>} />
+        <Route path="/profile" element={<PageTransition><Profile /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
 
 export default function App() {
   return (
@@ -23,19 +47,7 @@ export default function App() {
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/find-jobs" element={<FindJobs />} />
-                <Route path="/jobs/:id" element={<JobDetails />} />
-                <Route path="/apply/:jobId" element={<ApplyJob />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<Signup />} />
-                <Route path="/post-job" element={<PostJob />} />
-                <Route path="/employer/dashboard" element={<EmployerDashboard />} />
-                <Route path="/job-applications/:jobId" element={<JobApplications />} />
-                <Route path="/candidate/dashboard" element={<CandidateDashboard />} />
-                <Route path="/profile" element={<Profile />} />
-              </Routes>
+              <AnimatedRoutes />
             </main>
             <Footer />
           </div>

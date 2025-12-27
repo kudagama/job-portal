@@ -26,13 +26,18 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-100 shadow-sm transition-all duration-300">
+        <nav className="sticky top-0 z-50 glass transition-all duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     {/* Logo Section */}
                     <div className="flex-shrink-0">
-                        <Link to="/" className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
-                            JobPortal
+                        <Link to="/" className="flex items-center gap-2 transform hover:scale-105 transition-transform duration-200">
+                            <div className="bg-indigo-600 text-white h-10 w-10 flex items-center justify-center rounded-lg shadow-sm">
+                                <span className="font-bold text-2xl">S</span>
+                            </div>
+                            <span className="text-2xl font-extrabold text-indigo-700 tracking-tight leading-none">
+                                Saviya<span className="text-gray-500 text-xl">.lk</span>
+                            </span>
                         </Link>
                     </div>
 

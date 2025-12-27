@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext'; // Import Language Hook
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaLock, FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
+    const { t } = useLanguage(); // Get translations
     const navigate = useNavigate();
     const { login } = useAuth();
     const [email, setEmail] = useState('');
@@ -38,7 +40,8 @@ const Login = () => {
             }
         } catch (err) {
             console.error(err);
-            setError(err.response?.data?.message || "Login failed");
+            // Use translated error message if generic, or backend message
+            setError(err.response?.data?.message || t.login.fail);
         } finally {
             setLoading(false);
         }
@@ -52,16 +55,17 @@ const Login = () => {
                 transition={{ duration: 0.5 }}
                 className="sm:mx-auto sm:w-full sm:max-w-md"
             >
-                <div className="flex justify-center">
-                    <div className="h-12 w-12 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                        JP
+                <div className="flex flex-col items-center justify-center mb-6">
+                    <div className="h-16 w-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white text-4xl font-bold shadow-lg mb-4">
+                        S
                     </div>
+                    <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">Saviya.lk</h1>
                 </div>
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                    Welcome Back
+                    {t.login.welcome}
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-600">
-                    Sign in to access your dashboard
+                    {t.login.subtitle}
                 </p>
             </motion.div>
 
@@ -82,7 +86,7 @@ const Login = () => {
                     <form className="space-y-6" onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                                Email address
+                                {t.login.email}
                             </label>
                             <div className="mt-1 relative rounded-md shadow-sm">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -97,7 +101,7 @@ const Login = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 py-2 border"
-                                    placeholder="you@example.com"
+                                    placeholder={t.login.placeholderEmail}
                                 />
                             </div>
                         </div>
@@ -105,10 +109,10 @@ const Login = () => {
                         <div>
                             <div className="flex justify-between items-center">
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                                    Password
+                                    {t.login.password}
                                 </label>
                                 <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                    Forgot password?
+                                    {t.login.forgot}
                                 </a>
                             </div>
                             <div className="mt-1 relative rounded-md shadow-sm">
@@ -135,7 +139,7 @@ const Login = () => {
                                 disabled={loading}
                                 className={`w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-md text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform active:scale-95 ${loading ? 'opacity-75 cursor-not-allowed' : ''}`}
                             >
-                                {loading ? 'Signing in...' : 'Sign in'}
+                                {loading ? t.login.signingIn : t.login.signIn}
                             </button>
                         </div>
                     </form>
@@ -146,7 +150,7 @@ const Login = () => {
                                 <div className="w-full border-t border-gray-200" />
                             </div>
                             <div className="relative flex justify-center text-sm">
-                                <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                                <span className="px-2 bg-white text-gray-500">{t.login.orContinue}</span>
                             </div>
                         </div>
 
@@ -157,7 +161,7 @@ const Login = () => {
                                     className="w-full flex justify-center items-center py-2.5 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
                                 >
                                     <FaGoogle className="h-5 w-5 text-red-500 mr-2" />
-                                    Sign in with Google
+                                    {t.login.google}
                                 </a>
                             </div>
                         </div>
@@ -165,9 +169,9 @@ const Login = () => {
                 </div>
 
                 <p className="mt-6 text-center text-sm text-gray-600">
-                    Don't have an account?{' '}
+                    {t.login.noAccount}{' '}
                     <Link to="/signup" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                        Sign up for free
+                        {t.login.signup}
                     </Link>
                 </p>
             </motion.div>
